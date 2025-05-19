@@ -28,20 +28,22 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-soi_darwin = xr.open_dataset(gcd.get('netcdf_files/SOI_Darwin.nc'))
+ncl = xr.open_dataset(gcd.get('applications_files/ncl_outputs/spec_1_output.nc')).spec
 
-soi_darwin
+frq = ncl.frq
+spcx = ncl.spcx
 ------------------
 
 ----- stderr -----
-Downloading file 'netcdf_files/SOI_Darwin.nc' from 'https://github.com/NCAR/GeoCAT-datafiles/raw/main/netcdf_files/SOI_Darwin.nc' to '/home/runner/.cache/geocat'.
+Downloading file 'applications_files/ncl_outputs/spec_1_output.nc' from 'https://github.com/NCAR/GeoCAT-datafiles/raw/main/applications_files/ncl_outputs/spec_1_output.nc' to '/home/runner/.cache/geocat'.
 ------------------
 
 [31m---------------------------------------------------------------------------[39m
 [31mHTTPError[39m                                 Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 1[39m
-[32m----> [39m[32m1[39m soi_darwin = xr.open_dataset([43mgcd[49m[43m.[49m[43mget[49m[43m([49m[33;43m'[39;49m[33;43mnetcdf_files/SOI_Darwin.nc[39;49m[33;43m'[39;49m[43m)[49m)
-[32m      3[39m soi_darwin
+[36mCell[39m[36m [39m[32mIn[11][39m[32m, line 1[39m
+[32m----> [39m[32m1[39m ncl = xr.open_dataset([43mgcd[49m[43m.[49m[43mget[49m[43m([49m[33;43m'[39;49m[33;43mapplications_files/ncl_outputs/spec_1_output.nc[39;49m[33;43m'[39;49m[43m)[49m).spec
+[32m      3[39m frq = ncl.frq
+[32m      4[39m spcx = ncl.spcx
 
 [36mFile [39m[32m~/micromamba/envs/geocat-applications/lib/python3.13/site-packages/geocat/datafiles/__init__.py:31[39m, in [36mget[39m[34m(fname)[39m
 [32m     30[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mget[39m(fname):
@@ -84,5 +86,5 @@ Downloading file 'netcdf_files/SOI_Darwin.nc' from 'https://github.com/NCAR/GeoC
 [32m   1023[39m [38;5;28;01mif[39;00m http_error_msg:
 [32m-> [39m[32m1024[39m     [38;5;28;01mraise[39;00m HTTPError(http_error_msg, response=[38;5;28mself[39m)
 
-[31mHTTPError[39m: 429 Client Error: Too Many Requests for url: https://raw.githubusercontent.com/NCAR/GeoCAT-datafiles/main/netcdf_files/SOI_Darwin.nc
+[31mHTTPError[39m: 429 Client Error: Too Many Requests for url: https://raw.githubusercontent.com/NCAR/GeoCAT-datafiles/main/applications_files/ncl_outputs/spec_1_output.nc
 

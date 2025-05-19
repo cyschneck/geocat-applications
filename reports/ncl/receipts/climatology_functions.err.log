@@ -28,20 +28,81 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-soi_darwin = xr.open_dataset(gcd.get('netcdf_files/SOI_Darwin.nc'))
+import math
+import xarray as xr
+import geocat.datafiles as gdf
+from geocat.comp import month_to_season
 
-soi_darwin
+results = {}
+
+ds_m = xr.open_dataset(
+    gdf.get("applications_files/inputs/CMIP6_sea_ice_monthly_subset.nc")
+)
+ds_d = xr.open_dataset(
+    gdf.get("applications_files/inputs/CMIP6_sea_ice_daily_subset.nc")
+)
+
+# calcDayAnomTLL
+aice = ds_d.aice_d[:, 10, 10]
+DayTLL = aice.groupby(aice.time.dt.dayofyear)
+clmDayTLL = DayTLL.mean(dim="time")
+calcDayAnomTLL = DayTLL - clmDayTLL
+results["calcDayAnomTLL"] = calcDayAnomTLL.item(0)
+
+# calcMonAnomTLL
+aice = ds_m.aice[:, 10, 10]
+MonTLL = aice.groupby(aice.time.dt.month)
+clmMonTLL = MonTLL.mean(dim="time")
+calcMonAnomTLL = MonTLL - clmMonTLL
+results["calcMonAnomTLL"] = calcMonAnomTLL.item(0)
+
+# clmDayTLL
+aice = ds_d.aice_d[:, 10, 10]
+DayTLL = aice.groupby(aice.time.dt.dayofyear)
+clmDayTLL = DayTLL.mean(dim="time")
+results["clmDayTLL"] = clmDayTLL.item(0)
+
+# clmMonTLL
+aice = ds_m.aice[:, 10, 10]
+MonTLL = aice.groupby(aice.time.dt.month)
+clmMonTLL = MonTLL.mean(dim="time")
+results["clmMonTLL"] = clmMonTLL.item(0)
+
+# month_to_season
+aice = ds_m.aice[:, 10, 10]
+mon_to_season = month_to_season(aice, "ASO")
+results["month_to_season"] = mon_to_season.item(0)
+
+# rmMonAnnCycTLL
+aice = ds_m.aice[:, 10, 10]
+MonTLL = aice.groupby(aice.time.dt.month)
+clmMonTLL = MonTLL.mean(dim="time")
+rmMonAnnCycTLL = MonTLL - clmMonTLL
+results["rmMonAnnCycTLL"] = rmMonAnnCycTLL.item(0)
+
+# stdMonTLL
+aice = ds_m.aice[:, 10, 10]
+MonTLL = aice.groupby(aice.time.dt.month)
+stdMonTLL = MonTLL.std(ddof=1)
+results["stdMonTLL"] = stdMonTLL.item(0)
 ------------------
 
 ----- stderr -----
-Downloading file 'netcdf_files/SOI_Darwin.nc' from 'https://github.com/NCAR/GeoCAT-datafiles/raw/main/netcdf_files/SOI_Darwin.nc' to '/home/runner/.cache/geocat'.
+Downloading file 'applications_files/inputs/CMIP6_sea_ice_monthly_subset.nc' from 'https://github.com/NCAR/GeoCAT-datafiles/raw/main/applications_files/inputs/CMIP6_sea_ice_monthly_subset.nc' to '/home/runner/.cache/geocat'.
 ------------------
 
 [31m---------------------------------------------------------------------------[39m
 [31mHTTPError[39m                                 Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 1[39m
-[32m----> [39m[32m1[39m soi_darwin = xr.open_dataset([43mgcd[49m[43m.[49m[43mget[49m[43m([49m[33;43m'[39;49m[33;43mnetcdf_files/SOI_Darwin.nc[39;49m[33;43m'[39;49m[43m)[49m)
-[32m      3[39m soi_darwin
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 9[39m
+[32m      4[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mgeocat[39;00m[34;01m.[39;00m[34;01mcomp[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m month_to_season
+[32m      6[39m results = {}
+[32m      8[39m ds_m = xr.open_dataset(
+[32m----> [39m[32m9[39m     [43mgdf[49m[43m.[49m[43mget[49m[43m([49m[33;43m"[39;49m[33;43mapplications_files/inputs/CMIP6_sea_ice_monthly_subset.nc[39;49m[33;43m"[39;49m[43m)[49m
+[32m     10[39m )
+[32m     11[39m ds_d = xr.open_dataset(
+[32m     12[39m     gdf.get([33m"[39m[33mapplications_files/inputs/CMIP6_sea_ice_daily_subset.nc[39m[33m"[39m)
+[32m     13[39m )
+[32m     15[39m [38;5;66;03m# calcDayAnomTLL[39;00m
 
 [36mFile [39m[32m~/micromamba/envs/geocat-applications/lib/python3.13/site-packages/geocat/datafiles/__init__.py:31[39m, in [36mget[39m[34m(fname)[39m
 [32m     30[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mget[39m(fname):
@@ -84,5 +145,5 @@ Downloading file 'netcdf_files/SOI_Darwin.nc' from 'https://github.com/NCAR/GeoC
 [32m   1023[39m [38;5;28;01mif[39;00m http_error_msg:
 [32m-> [39m[32m1024[39m     [38;5;28;01mraise[39;00m HTTPError(http_error_msg, response=[38;5;28mself[39m)
 
-[31mHTTPError[39m: 429 Client Error: Too Many Requests for url: https://raw.githubusercontent.com/NCAR/GeoCAT-datafiles/main/netcdf_files/SOI_Darwin.nc
+[31mHTTPError[39m: 429 Client Error: Too Many Requests for url: https://raw.githubusercontent.com/NCAR/GeoCAT-datafiles/main/applications_files/inputs/CMIP6_sea_ice_monthly_subset.nc
 
