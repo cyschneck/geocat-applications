@@ -502,9 +502,7 @@ document.write(`
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -583,6 +581,7 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
 }
 
 .xr-text-repr-fallback {
@@ -605,11 +604,18 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name,
+.xr-group-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
+.xr-group-name::before {
+  content: "📁";
+  padding-right: 0.3em;
+}
+
+.xr-group-name,
 .xr-obj-type {
   color: var(--xr-font-color2);
 }
@@ -618,6 +624,8 @@ body.vscode-dark {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
@@ -628,6 +636,7 @@ body.vscode-dark {
   display: inline-block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
 .xr-section-item input + label {
@@ -686,7 +695,6 @@ body.vscode-dark {
 .xr-section-summary,
 .xr-section-inline-details {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -696,11 +704,38 @@ body.vscode-dark {
 .xr-section-details {
   display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 20px auto;
+  width: 100%;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 20px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
 }
 
 .xr-array-wrap {
@@ -944,10 +979,7 @@ Attributes:
     creation_date:  Tue Mar 30 09:29:20 MST 1999
     references:     Trenberth, Mon. Wea. Rev: 2/1984
     time_span:      1882 - 1998
-    conventions:    None</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-7da77bbe-bcef-47ad-9272-f94808691638' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-7da77bbe-bcef-47ad-9272-f94808691638' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 1404</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-d8da12b8-ea1f-4fc2-98a9-4fd46532e341' class='xr-section-summary-in' type='checkbox'  checked><label for='section-d8da12b8-ea1f-4fc2-98a9-4fd46532e341' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>int32</div><div class='xr-var-preview xr-preview'>0 1 2 3 4 ... 1400 1401 1402 1403</div><input id='attrs-858d69c6-38e1-45cd-8ba7-33d92398108f' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-858d69c6-38e1-45cd-8ba7-33d92398108f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-a3d24559-2055-4aeb-adf0-e108dfe5848d' class='xr-var-data-in' type='checkbox'><label for='data-a3d24559-2055-4aeb-adf0-e108dfe5848d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Months Since January 1882</dd><dt><span>units :</span></dt><dd>months</dd></dl></div><div class='xr-var-data'><pre>array([   0,    1,    2, ..., 1401, 1402, 1403], shape=(1404,), dtype=int32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-9e7af6af-a836-4902-aef9-a6e84ffcad86' class='xr-section-summary-in' type='checkbox'  checked><label for='section-9e7af6af-a836-4902-aef9-a6e84ffcad86' class='xr-section-summary' >Data variables: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>date</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-7e564816-36c8-41a3-abc9-3837a2725c76' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-7e564816-36c8-41a3-abc9-3837a2725c76' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-6f149f3f-0356-45bd-aa47-7fa125c112bf' class='xr-var-data-in' type='checkbox'><label for='data-6f149f3f-0356-45bd-aa47-7fa125c112bf' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>Yr-Mo</dd><dt><span>long_name :</span></dt><dd>Year-Month</dd><dt><span>units :</span></dt><dd>YYYYMM</dd></dl></div><div class='xr-var-data'><pre>[1404 values with dtype=float64]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>DSOI</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-c463ecc1-9925-4803-88f4-da78fc1cb477' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-c463ecc1-9925-4803-88f4-da78fc1cb477' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-6418bfcf-9f2e-4432-b11e-d4d472fe4312' class='xr-var-data-in' type='checkbox'><label for='data-6418bfcf-9f2e-4432-b11e-d4d472fe4312' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>DSOI</dd><dt><span>long_name :</span></dt><dd>Darwin Southern Oscillation Index</dd><dt><span>units :</span></dt><dd>dimensionless</dd></dl></div><div class='xr-var-data'><pre>[1404 values with dtype=float32]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-67669b10-cc43-420b-b7b8-6e51f31cfc0d' class='xr-section-summary-in' type='checkbox'  ><label for='section-67669b10-cc43-420b-b7b8-6e51f31cfc0d' class='xr-section-summary' >Indexes: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-09a076b3-1255-4f36-a323-7c671433d585' class='xr-index-data-in' type='checkbox'/><label for='index-09a076b3-1255-4f36-a323-7c671433d585' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(Index([   0,    1,    2,    3,    4,    5,    6,    7,    8,    9,
-       ...
-       1394, 1395, 1396, 1397, 1398, 1399, 1400, 1401, 1402, 1403],
-      dtype=&#x27;int32&#x27;, name=&#x27;time&#x27;, length=1404))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-5e394ce7-4a66-431d-a593-9a71d31a9dcd' class='xr-section-summary-in' type='checkbox'  checked><label for='section-5e394ce7-4a66-431d-a593-9a71d31a9dcd' class='xr-section-summary' >Attributes: <span>(7)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>title :</span></dt><dd>Darwin Southern Oscillation Index</dd><dt><span>source :</span></dt><dd>Climate Analysis Section, NCAR</dd><dt><span>history :</span></dt><dd>
+    conventions:    None</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-a9d4b0e7-9ea8-4b2f-b5b0-fd63e3c81cd5' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-a9d4b0e7-9ea8-4b2f-b5b0-fd63e3c81cd5' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 1404</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-decf76ab-f257-4e09-8dcf-f894b03419a2' class='xr-section-summary-in' type='checkbox'  checked><label for='section-decf76ab-f257-4e09-8dcf-f894b03419a2' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>int32</div><div class='xr-var-preview xr-preview'>0 1 2 3 4 ... 1400 1401 1402 1403</div><input id='attrs-a8111814-d488-4ab8-a582-eb1c4dac106f' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-a8111814-d488-4ab8-a582-eb1c4dac106f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-519dbf31-b904-4d94-ad7e-e4e0a06b7672' class='xr-var-data-in' type='checkbox'><label for='data-519dbf31-b904-4d94-ad7e-e4e0a06b7672' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>long_name :</span></dt><dd>Months Since January 1882</dd><dt><span>units :</span></dt><dd>months</dd></dl></div><div class='xr-var-data'><pre>array([   0,    1,    2, ..., 1401, 1402, 1403], shape=(1404,), dtype=int32)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-4b405105-9d05-4273-a135-5802a751b766' class='xr-section-summary-in' type='checkbox'  checked><label for='section-4b405105-9d05-4273-a135-5802a751b766' class='xr-section-summary' >Data variables: <span>(2)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>date</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-de800bbc-ae71-45a9-9bd5-4b171b63281b' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-de800bbc-ae71-45a9-9bd5-4b171b63281b' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-5280b019-bed9-4ae1-8b6e-3562df09a637' class='xr-var-data-in' type='checkbox'><label for='data-5280b019-bed9-4ae1-8b6e-3562df09a637' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>Yr-Mo</dd><dt><span>long_name :</span></dt><dd>Year-Month</dd><dt><span>units :</span></dt><dd>YYYYMM</dd></dl></div><div class='xr-var-data'><pre>[1404 values with dtype=float64]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>DSOI</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-0e8dd551-73bc-4109-b773-3f055e4e9afa' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-0e8dd551-73bc-4109-b773-3f055e4e9afa' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-df838bba-d4a8-4855-bf26-d59df2fdcb56' class='xr-var-data-in' type='checkbox'><label for='data-df838bba-d4a8-4855-bf26-d59df2fdcb56' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>DSOI</dd><dt><span>long_name :</span></dt><dd>Darwin Southern Oscillation Index</dd><dt><span>units :</span></dt><dd>dimensionless</dd></dl></div><div class='xr-var-data'><pre>[1404 values with dtype=float32]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-9ab2c050-ff59-4c7e-afe6-42a39f2eac97' class='xr-section-summary-in' type='checkbox'  checked><label for='section-9ab2c050-ff59-4c7e-afe6-42a39f2eac97' class='xr-section-summary' >Attributes: <span>(7)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>title :</span></dt><dd>Darwin Southern Oscillation Index</dd><dt><span>source :</span></dt><dd>Climate Analysis Section, NCAR</dd><dt><span>history :</span></dt><dd>
 DSOI = - Normalized Darwin
 Normalized sea level pressure is used.
 The normalization is done using Trenberth&#x27;s method.
@@ -1156,9 +1188,7 @@ see  http://www.cgd.ucar.edu/cas/climind/soi.html</dd><dt><span>creation_date :<
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -1237,6 +1267,7 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
 }
 
 .xr-text-repr-fallback {
@@ -1259,11 +1290,18 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name,
+.xr-group-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
+.xr-group-name::before {
+  content: "📁";
+  padding-right: 0.3em;
+}
+
+.xr-group-name,
 .xr-obj-type {
   color: var(--xr-font-color2);
 }
@@ -1272,6 +1310,8 @@ body.vscode-dark {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
@@ -1282,6 +1322,7 @@ body.vscode-dark {
   display: inline-block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
 .xr-section-item input + label {
@@ -1340,7 +1381,6 @@ body.vscode-dark {
 .xr-section-summary,
 .xr-section-inline-details {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -1350,11 +1390,38 @@ body.vscode-dark {
 .xr-section-details {
   display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 20px auto;
+  width: 100%;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 20px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
 }
 
 .xr-array-wrap {
@@ -1597,17 +1664,10 @@ Attributes:
     source:         Climate Analysis Section, NCAR
     history:        \nCreated to test specxy routines
     creation_date:  Tue Mar 30 12:34:39 MST 1999
-    conventions:    None</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-7526b2ac-b059-4e33-9400-bdfce31d1215' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-7526b2ac-b059-4e33-9400-bdfce31d1215' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 768</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-39ebab59-51cd-492c-9d97-1ae4ca53bafa' class='xr-section-summary-in' type='checkbox'  checked><label for='section-39ebab59-51cd-492c-9d97-1ae4ca53bafa' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>1935-01-01 ... 1998-12-01</div><input id='attrs-a6525056-e7e4-4c24-8605-b316f7f0f906' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-a6525056-e7e4-4c24-8605-b316f7f0f906' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-863f22d4-9564-4cfa-b154-864dc1e8117f' class='xr-var-data-in' type='checkbox'><label for='data-863f22d4-9564-4cfa-b154-864dc1e8117f' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;1935-01-01T00:00:00.000000000&#x27;, &#x27;1935-02-01T00:00:00.000000000&#x27;,
+    conventions:    None</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.Dataset</div></div><ul class='xr-sections'><li class='xr-section-item'><input id='section-f10d030a-1f17-4ea3-a59d-3783d875c6a3' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-f10d030a-1f17-4ea3-a59d-3783d875c6a3' class='xr-section-summary'  title='Expand/collapse section'>Dimensions:</label><div class='xr-section-inline-details'><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 768</li></ul></div><div class='xr-section-details'></div></li><li class='xr-section-item'><input id='section-917c10fd-eec7-4a42-80cd-39206168eb15' class='xr-section-summary-in' type='checkbox'  checked><label for='section-917c10fd-eec7-4a42-80cd-39206168eb15' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>1935-01-01 ... 1998-12-01</div><input id='attrs-d61347d6-71d7-47bf-9a72-e40737487aab' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-d61347d6-71d7-47bf-9a72-e40737487aab' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-d166978a-0874-41fc-9a54-b3f2f569d802' class='xr-var-data-in' type='checkbox'><label for='data-d166978a-0874-41fc-9a54-b3f2f569d802' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;1935-01-01T00:00:00.000000000&#x27;, &#x27;1935-02-01T00:00:00.000000000&#x27;,
        &#x27;1935-03-01T00:00:00.000000000&#x27;, ..., &#x27;1998-10-01T00:00:00.000000000&#x27;,
        &#x27;1998-11-01T00:00:00.000000000&#x27;, &#x27;1998-12-01T00:00:00.000000000&#x27;],
-      shape=(768,), dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-b7ac83a7-43b0-49eb-a4b5-43bf0bd0eea6' class='xr-section-summary-in' type='checkbox'  checked><label for='section-b7ac83a7-43b0-49eb-a4b5-43bf0bd0eea6' class='xr-section-summary' >Data variables: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>date</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-e77e3eab-6a01-4319-9a39-0ddd30b08d44' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-e77e3eab-6a01-4319-9a39-0ddd30b08d44' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-2fc38737-9018-4ebe-8069-c1ded4ec5cad' class='xr-var-data-in' type='checkbox'><label for='data-2fc38737-9018-4ebe-8069-c1ded4ec5cad' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>Yr-Mo</dd><dt><span>long_name :</span></dt><dd>Year-Month</dd><dt><span>units :</span></dt><dd>YYYYMM</dd></dl></div><div class='xr-var-data'><pre>[768 values with dtype=float64]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>DSLP</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-d312cf61-5072-4f45-bf3d-de5a04a25b8e' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-d312cf61-5072-4f45-bf3d-de5a04a25b8e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-e1aa73b7-5f9d-4187-9816-5dd895cfc1d1' class='xr-var-data-in' type='checkbox'><label for='data-e1aa73b7-5f9d-4187-9816-5dd895cfc1d1' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>DSLP</dd><dt><span>long_name :</span></dt><dd>Darwin Sea Level Pressure Anomalies</dd><dt><span>units :</span></dt><dd>hPa</dd></dl></div><div class='xr-var-data'><pre>[768 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>TSLP</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-c8b48990-f30b-4f7f-9c96-20738544a491' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-c8b48990-f30b-4f7f-9c96-20738544a491' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-31bbb3a5-033d-44fe-ab8d-badb56ddbfda' class='xr-var-data-in' type='checkbox'><label for='data-31bbb3a5-033d-44fe-ab8d-badb56ddbfda' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>TSLP</dd><dt><span>long_name :</span></dt><dd>Tahiti Sea Level Pressure Anomalies</dd><dt><span>units :</span></dt><dd>hPa</dd></dl></div><div class='xr-var-data'><pre>[768 values with dtype=float32]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-abdbf693-f47e-413b-a729-9051d6674913' class='xr-section-summary-in' type='checkbox'  ><label for='section-abdbf693-f47e-413b-a729-9051d6674913' class='xr-section-summary' >Indexes: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-78622006-7fca-41ba-a976-30be782374d1' class='xr-index-data-in' type='checkbox'/><label for='index-78622006-7fca-41ba-a976-30be782374d1' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(DatetimeIndex([&#x27;1935-01-01&#x27;, &#x27;1935-02-01&#x27;, &#x27;1935-03-01&#x27;, &#x27;1935-04-01&#x27;,
-               &#x27;1935-05-01&#x27;, &#x27;1935-06-01&#x27;, &#x27;1935-07-01&#x27;, &#x27;1935-08-01&#x27;,
-               &#x27;1935-09-01&#x27;, &#x27;1935-10-01&#x27;,
-               ...
-               &#x27;1998-03-01&#x27;, &#x27;1998-04-01&#x27;, &#x27;1998-05-01&#x27;, &#x27;1998-06-01&#x27;,
-               &#x27;1998-07-01&#x27;, &#x27;1998-08-01&#x27;, &#x27;1998-09-01&#x27;, &#x27;1998-10-01&#x27;,
-               &#x27;1998-11-01&#x27;, &#x27;1998-12-01&#x27;],
-              dtype=&#x27;datetime64[ns]&#x27;, name=&#x27;time&#x27;, length=768, freq=None))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-d62f82f5-658a-46bc-86d8-6d7fd108485f' class='xr-section-summary-in' type='checkbox'  checked><label for='section-d62f82f5-658a-46bc-86d8-6d7fd108485f' class='xr-section-summary' >Attributes: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>title :</span></dt><dd>Darwin and Tahiti Sea Level Pressure Anomalies: 1935-1998</dd><dt><span>source :</span></dt><dd>Climate Analysis Section, NCAR</dd><dt><span>history :</span></dt><dd>
+      shape=(768,), dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-56a7e583-d473-453f-a164-d5ac38de4a49' class='xr-section-summary-in' type='checkbox'  checked><label for='section-56a7e583-d473-453f-a164-d5ac38de4a49' class='xr-section-summary' >Data variables: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span>date</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-6545ef78-409b-4673-927e-dedb15780a58' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-6545ef78-409b-4673-927e-dedb15780a58' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-10416cdc-60d2-440c-8bc3-a0168cf83743' class='xr-var-data-in' type='checkbox'><label for='data-10416cdc-60d2-440c-8bc3-a0168cf83743' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>Yr-Mo</dd><dt><span>long_name :</span></dt><dd>Year-Month</dd><dt><span>units :</span></dt><dd>YYYYMM</dd></dl></div><div class='xr-var-data'><pre>[768 values with dtype=float64]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>DSLP</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-c6c91e46-b48b-4fbb-a953-a48fb0a4e495' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-c6c91e46-b48b-4fbb-a953-a48fb0a4e495' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-246d3bb5-d896-4f86-8bbe-e2fe1df7cf8c' class='xr-var-data-in' type='checkbox'><label for='data-246d3bb5-d896-4f86-8bbe-e2fe1df7cf8c' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>DSLP</dd><dt><span>long_name :</span></dt><dd>Darwin Sea Level Pressure Anomalies</dd><dt><span>units :</span></dt><dd>hPa</dd></dl></div><div class='xr-var-data'><pre>[768 values with dtype=float32]</pre></div></li><li class='xr-var-item'><div class='xr-var-name'><span>TSLP</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>float32</div><div class='xr-var-preview xr-preview'>...</div><input id='attrs-cfb08423-401f-4640-8c09-7f4d14045853' class='xr-var-attrs-in' type='checkbox' ><label for='attrs-cfb08423-401f-4640-8c09-7f4d14045853' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-0dbea43e-f56a-4c70-986c-666afde50ece' class='xr-var-data-in' type='checkbox'><label for='data-0dbea43e-f56a-4c70-986c-666afde50ece' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>TSLP</dd><dt><span>long_name :</span></dt><dd>Tahiti Sea Level Pressure Anomalies</dd><dt><span>units :</span></dt><dd>hPa</dd></dl></div><div class='xr-var-data'><pre>[768 values with dtype=float32]</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-b14816a6-3442-4a3f-8966-6f312019682b' class='xr-section-summary-in' type='checkbox'  checked><label for='section-b14816a6-3442-4a3f-8966-6f312019682b' class='xr-section-summary' >Attributes: <span>(5)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>title :</span></dt><dd>Darwin and Tahiti Sea Level Pressure Anomalies: 1935-1998</dd><dt><span>source :</span></dt><dd>Climate Analysis Section, NCAR</dd><dt><span>history :</span></dt><dd>
 Created to test specxy routines</dd><dt><span>creation_date :</span></dt><dd>Tue Mar 30 12:34:39 MST 1999</dd><dt><span>conventions :</span></dt><dd>None</dd></dl></div></li></ul></div></div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1633,9 +1693,7 @@ Created to test specxy routines</dd><dt><span>creation_date :</span></dt><dd>Tue
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -1714,6 +1772,7 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
 }
 
 .xr-text-repr-fallback {
@@ -1736,11 +1795,18 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name,
+.xr-group-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
+.xr-group-name::before {
+  content: "📁";
+  padding-right: 0.3em;
+}
+
+.xr-group-name,
 .xr-obj-type {
   color: var(--xr-font-color2);
 }
@@ -1749,6 +1815,8 @@ body.vscode-dark {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
@@ -1759,6 +1827,7 @@ body.vscode-dark {
   display: inline-block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
 .xr-section-item input + label {
@@ -1817,7 +1886,6 @@ body.vscode-dark {
 .xr-section-summary,
 .xr-section-inline-details {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -1827,11 +1895,38 @@ body.vscode-dark {
 .xr-section-details {
   display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 20px auto;
+  width: 100%;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 20px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
 }
 
 .xr-array-wrap {
@@ -2068,17 +2163,10 @@ Coordinates:
 Attributes:
     short_name:  DSLP
     long_name:   Darwin Sea Level Pressure Anomalies
-    units:       hPa</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'DSLP'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 768</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-300004e6-499f-4d30-a514-78414cffe84c' class='xr-array-in' type='checkbox' checked><label for='section-300004e6-499f-4d30-a514-78414cffe84c' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>...</span></div><div class='xr-array-data'><pre>[768 values with dtype=float32]</pre></div></div></li><li class='xr-section-item'><input id='section-0be6bf36-ce27-403c-aba3-7de925a78c30' class='xr-section-summary-in' type='checkbox'  checked><label for='section-0be6bf36-ce27-403c-aba3-7de925a78c30' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>1935-01-01 ... 1998-12-01</div><input id='attrs-4e2c6447-3c8d-43fb-a1df-f6c29ff0b601' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-4e2c6447-3c8d-43fb-a1df-f6c29ff0b601' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-d16b3af8-4fb7-400b-8c51-8374ea72530d' class='xr-var-data-in' type='checkbox'><label for='data-d16b3af8-4fb7-400b-8c51-8374ea72530d' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;1935-01-01T00:00:00.000000000&#x27;, &#x27;1935-02-01T00:00:00.000000000&#x27;,
+    units:       hPa</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-obj-name'>&#x27;DSLP&#x27;</div><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 768</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-d493ab04-789c-4cfe-b58e-8994ece31c76' class='xr-array-in' type='checkbox' checked><label for='section-d493ab04-789c-4cfe-b58e-8994ece31c76' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>...</span></div><div class='xr-array-data'><pre>[768 values with dtype=float32]</pre></div></div></li><li class='xr-section-item'><input id='section-5bdb0853-20e4-4136-8be9-14b6674127e0' class='xr-section-summary-in' type='checkbox'  checked><label for='section-5bdb0853-20e4-4136-8be9-14b6674127e0' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>1935-01-01 ... 1998-12-01</div><input id='attrs-a8be73ab-19ae-481b-a0df-4a2d140f4649' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-a8be73ab-19ae-481b-a0df-4a2d140f4649' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-68e469d8-1d10-4192-b1ec-0ae147ff949a' class='xr-var-data-in' type='checkbox'><label for='data-68e469d8-1d10-4192-b1ec-0ae147ff949a' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;1935-01-01T00:00:00.000000000&#x27;, &#x27;1935-02-01T00:00:00.000000000&#x27;,
        &#x27;1935-03-01T00:00:00.000000000&#x27;, ..., &#x27;1998-10-01T00:00:00.000000000&#x27;,
        &#x27;1998-11-01T00:00:00.000000000&#x27;, &#x27;1998-12-01T00:00:00.000000000&#x27;],
-      shape=(768,), dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-7d84b586-6974-4e3b-8e14-37eea1876ad3' class='xr-section-summary-in' type='checkbox'  ><label for='section-7d84b586-6974-4e3b-8e14-37eea1876ad3' class='xr-section-summary' >Indexes: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-12ea0ee8-2109-46b1-99e4-aeae47c210d2' class='xr-index-data-in' type='checkbox'/><label for='index-12ea0ee8-2109-46b1-99e4-aeae47c210d2' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(DatetimeIndex([&#x27;1935-01-01&#x27;, &#x27;1935-02-01&#x27;, &#x27;1935-03-01&#x27;, &#x27;1935-04-01&#x27;,
-               &#x27;1935-05-01&#x27;, &#x27;1935-06-01&#x27;, &#x27;1935-07-01&#x27;, &#x27;1935-08-01&#x27;,
-               &#x27;1935-09-01&#x27;, &#x27;1935-10-01&#x27;,
-               ...
-               &#x27;1998-03-01&#x27;, &#x27;1998-04-01&#x27;, &#x27;1998-05-01&#x27;, &#x27;1998-06-01&#x27;,
-               &#x27;1998-07-01&#x27;, &#x27;1998-08-01&#x27;, &#x27;1998-09-01&#x27;, &#x27;1998-10-01&#x27;,
-               &#x27;1998-11-01&#x27;, &#x27;1998-12-01&#x27;],
-              dtype=&#x27;datetime64[ns]&#x27;, name=&#x27;time&#x27;, length=768, freq=None))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-8dd777fd-c6cd-4196-a6ee-2717b25f25d4' class='xr-section-summary-in' type='checkbox'  checked><label for='section-8dd777fd-c6cd-4196-a6ee-2717b25f25d4' class='xr-section-summary' >Attributes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>DSLP</dd><dt><span>long_name :</span></dt><dd>Darwin Sea Level Pressure Anomalies</dd><dt><span>units :</span></dt><dd>hPa</dd></dl></div></li></ul></div></div></div></div>
+      shape=(768,), dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-b16137ee-5ded-43b7-a14e-87f4b6cec4a1' class='xr-section-summary-in' type='checkbox'  checked><label for='section-b16137ee-5ded-43b7-a14e-87f4b6cec4a1' class='xr-section-summary' >Attributes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>DSLP</dd><dt><span>long_name :</span></dt><dd>Darwin Sea Level Pressure Anomalies</dd><dt><span>units :</span></dt><dd>hPa</dd></dl></div></li></ul></div></div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2103,9 +2191,7 @@ Attributes:
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -2184,6 +2270,7 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
 }
 
 .xr-text-repr-fallback {
@@ -2206,11 +2293,18 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name,
+.xr-group-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
+.xr-group-name::before {
+  content: "📁";
+  padding-right: 0.3em;
+}
+
+.xr-group-name,
 .xr-obj-type {
   color: var(--xr-font-color2);
 }
@@ -2219,6 +2313,8 @@ body.vscode-dark {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
@@ -2229,6 +2325,7 @@ body.vscode-dark {
   display: inline-block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
 .xr-section-item input + label {
@@ -2287,7 +2384,6 @@ body.vscode-dark {
 .xr-section-summary,
 .xr-section-inline-details {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -2297,11 +2393,38 @@ body.vscode-dark {
 .xr-section-details {
   display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 20px auto;
+  width: 100%;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 20px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
 }
 
 .xr-array-wrap {
@@ -2538,17 +2661,10 @@ Coordinates:
 Attributes:
     short_name:  TSLP
     long_name:   Tahiti Sea Level Pressure Anomalies
-    units:       hPa</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'TSLP'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 768</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-eb86ff8e-2796-45b2-b129-e7a3f3a83189' class='xr-array-in' type='checkbox' checked><label for='section-eb86ff8e-2796-45b2-b129-e7a3f3a83189' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>...</span></div><div class='xr-array-data'><pre>[768 values with dtype=float32]</pre></div></div></li><li class='xr-section-item'><input id='section-55657b4b-9ed9-4e13-9ab6-b75faa63e1c2' class='xr-section-summary-in' type='checkbox'  checked><label for='section-55657b4b-9ed9-4e13-9ab6-b75faa63e1c2' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>1935-01-01 ... 1998-12-01</div><input id='attrs-304b11b2-9f8c-4d0c-8739-a42dd550d88d' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-304b11b2-9f8c-4d0c-8739-a42dd550d88d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-48bf4382-b8e4-47ab-aa1b-292b3396b3e9' class='xr-var-data-in' type='checkbox'><label for='data-48bf4382-b8e4-47ab-aa1b-292b3396b3e9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;1935-01-01T00:00:00.000000000&#x27;, &#x27;1935-02-01T00:00:00.000000000&#x27;,
+    units:       hPa</pre><div class='xr-wrap' style='display:none'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-obj-name'>&#x27;TSLP&#x27;</div><ul class='xr-dim-list'><li><span class='xr-has-index'>time</span>: 768</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-be80af7b-0344-4430-8130-0eef8511f385' class='xr-array-in' type='checkbox' checked><label for='section-be80af7b-0344-4430-8130-0eef8511f385' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>...</span></div><div class='xr-array-data'><pre>[768 values with dtype=float32]</pre></div></div></li><li class='xr-section-item'><input id='section-a0c4444e-ca51-455d-88e9-1a6afc5ab75a' class='xr-section-summary-in' type='checkbox'  checked><label for='section-a0c4444e-ca51-455d-88e9-1a6afc5ab75a' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time</span></div><div class='xr-var-dims'>(time)</div><div class='xr-var-dtype'>datetime64[ns]</div><div class='xr-var-preview xr-preview'>1935-01-01 ... 1998-12-01</div><input id='attrs-8ac914f4-aa13-4dec-b112-02405562c7e4' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-8ac914f4-aa13-4dec-b112-02405562c7e4' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b0d4a8a6-c990-4d80-b43e-51954f14f7a9' class='xr-var-data-in' type='checkbox'><label for='data-b0d4a8a6-c990-4d80-b43e-51954f14f7a9' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><div class='xr-var-data'><pre>array([&#x27;1935-01-01T00:00:00.000000000&#x27;, &#x27;1935-02-01T00:00:00.000000000&#x27;,
        &#x27;1935-03-01T00:00:00.000000000&#x27;, ..., &#x27;1998-10-01T00:00:00.000000000&#x27;,
        &#x27;1998-11-01T00:00:00.000000000&#x27;, &#x27;1998-12-01T00:00:00.000000000&#x27;],
-      shape=(768,), dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-a770d211-86a8-40b5-bddc-2ae9f283c566' class='xr-section-summary-in' type='checkbox'  ><label for='section-a770d211-86a8-40b5-bddc-2ae9f283c566' class='xr-section-summary' >Indexes: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-index-name'><div>time</div></div><div class='xr-index-preview'>PandasIndex</div><input type='checkbox' disabled/><label></label><input id='index-d01c6e2a-6f24-4a31-80e0-2d72b3f15990' class='xr-index-data-in' type='checkbox'/><label for='index-d01c6e2a-6f24-4a31-80e0-2d72b3f15990' title='Show/Hide index repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-index-data'><pre>PandasIndex(DatetimeIndex([&#x27;1935-01-01&#x27;, &#x27;1935-02-01&#x27;, &#x27;1935-03-01&#x27;, &#x27;1935-04-01&#x27;,
-               &#x27;1935-05-01&#x27;, &#x27;1935-06-01&#x27;, &#x27;1935-07-01&#x27;, &#x27;1935-08-01&#x27;,
-               &#x27;1935-09-01&#x27;, &#x27;1935-10-01&#x27;,
-               ...
-               &#x27;1998-03-01&#x27;, &#x27;1998-04-01&#x27;, &#x27;1998-05-01&#x27;, &#x27;1998-06-01&#x27;,
-               &#x27;1998-07-01&#x27;, &#x27;1998-08-01&#x27;, &#x27;1998-09-01&#x27;, &#x27;1998-10-01&#x27;,
-               &#x27;1998-11-01&#x27;, &#x27;1998-12-01&#x27;],
-              dtype=&#x27;datetime64[ns]&#x27;, name=&#x27;time&#x27;, length=768, freq=None))</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-f368331b-fb69-48ed-9bd2-1a9d516a4ce1' class='xr-section-summary-in' type='checkbox'  checked><label for='section-f368331b-fb69-48ed-9bd2-1a9d516a4ce1' class='xr-section-summary' >Attributes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>TSLP</dd><dt><span>long_name :</span></dt><dd>Tahiti Sea Level Pressure Anomalies</dd><dt><span>units :</span></dt><dd>hPa</dd></dl></div></li></ul></div></div></div></div>
+      shape=(768,), dtype=&#x27;datetime64[ns]&#x27;)</pre></div></li></ul></div></li><li class='xr-section-item'><input id='section-e6524c76-f663-4a59-928b-93c7cf71bc17' class='xr-section-summary-in' type='checkbox'  checked><label for='section-e6524c76-f663-4a59-928b-93c7cf71bc17' class='xr-section-summary' >Attributes: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'><dt><span>short_name :</span></dt><dd>TSLP</dd><dt><span>long_name :</span></dt><dd>Tahiti Sea Level Pressure Anomalies</dd><dt><span>units :</span></dt><dd>hPa</dd></dl></div></li></ul></div></div></div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
